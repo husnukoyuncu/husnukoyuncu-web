@@ -82,6 +82,12 @@ ul { list-style: none; }
 /* Hamburger */
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
 .hamburger span { width: 22px; height: 2px; background: var(--text-muted); border-radius: 2px; transition: var(--transition); }
+.logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
 
 /* --- Hero --- */
 .hero {
