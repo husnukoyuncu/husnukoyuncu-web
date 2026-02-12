@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kullanım Şartları • OtoBot</title>
+  <meta name="description" content="OtoBot kullanım şartları — hizmet koşulları." />
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="wrapper">
+      <a href="/" class="nav-brand">
+        <div class="logo-icon">O</div>
+        OtoBot
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="/">Ana Sayfa</a>
+        <a href="/onboarding/">Onboarding</a>
+        <a href="/privacy-policy/">Gizlilik</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <section class="subpage-hero">
+    <div class="wrapper">
+      <div class="section-label">Yasal</div>
+      <h1 class="section-title">Kullanım Şartları (Terms of Service)</h1>
+      <p class="section-desc">Taslak metin. Yayına almadan önce birlikte netleştireceğiz.</p>
+
+      <div class="subpage-card">
+        <h3>Hizmet</h3>
+        <p>Belge toplama, sınıflandırma, Drive/Sheets kayıt ve otomasyon akışları.</p>
+      </div>
+
+      <div class="subpage-card">
+        <h3>Sorumluluk</h3>
+        <p>Kullanıcı tarafından sağlanan verilerin doğruluğu kullanıcı sorumluluğundadır.</p>
+      </div>
+
+      <div class="subpage-card">
+        <h3>İletişim</h3>
+        <p><a href="mailto:koyuncuhusnu@gmail.com" style="color:var(--accent-light);">koyuncuhusnu@gmail.com</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrapper">
+      <div>© <span id="y"></span> OtoBot — husnukoyuncu.com</div>
+      <div class="footer-links">
+        <a href="/privacy-policy/">Gizlilik Politikası</a>
+        <a href="/onboarding/">Onboarding</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  </script>
+</body>
+
+</html>

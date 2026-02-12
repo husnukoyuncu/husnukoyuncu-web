@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Onboarding • OtoBot</title>
+  <meta name="description" content="OtoBot onboarding — muhasebe otomasyon sisteminizi kurun." />
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="wrapper">
+      <a href="/" class="nav-brand">
+        <div class="logo-icon">O</div>
+        OtoBot
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="/">Ana Sayfa</a>
+        <a href="/privacy-policy/">Gizlilik</a>
+        <a href="/terms-of-service/">Şartlar</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <section class="subpage-hero">
+    <div class="wrapper">
+      <div class="section-label">Kurulum</div>
+      <h1 class="section-title">Onboarding</h1>
+      <p class="section-desc">
+        Bu sayfa şimdilik başlangıç ekranıdır. Bir sonraki adımda burayı gerçek müşteri onboarding akışına çevireceğiz
+        (mükellef bilgileri + Drive klasörü + Sheets bağlama + test).
+      </p>
+
+      <div class="subpage-card">
+        <h3>1) Mükellef Bilgisi</h3>
+        <p>Firma adı, vergi no, telefon, e-posta</p>
+        <input class="subpage-input" placeholder="Firma Adı" />
+      </div>
+
+      <div class="subpage-card">
+        <h3>2) Google Bağlantısı</h3>
+        <p>Drive & Sheets erişim adımı (OAuth). Publish öncesi doğrulama adımlarını birlikte tamamlayacağız.</p>
+        <input class="subpage-input" placeholder="Google hesabı e-posta" />
+      </div>
+
+      <div class="subpage-card">
+        <h3>3) Test</h3>
+        <p>Webhook test ve ilk belge denemesi.</p>
+        <div class="hero-actions" style="margin-top:16px;">
+          <a class="btn btn-primary" href="#">Testi Başlat (yakında)</a>
+          <a class="btn" href="/">Geri Dön</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrapper">
+      <div>© <span id="y"></span> OtoBot — husnukoyuncu.com</div>
+      <div class="footer-links">
+        <a href="/privacy-policy/">Gizlilik Politikası</a>
+        <a href="/terms-of-service/">Kullanım Şartları</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  </script>
+</body>
+
+</html>
