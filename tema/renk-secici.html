@@ -29,10 +29,10 @@
       for(var k=0;k<opts.length;k++){
         var el=opts[k];if(el.getAttribute('data-unc')==='1')continue;
         var title=el.getAttribute('data-option-title')||el.textContent.trim(),sl=slug(title),hex=HEX[sl]||'#cccccc',src=findImg(sl);
-        var sw=document.createElement('span');sw.className='unc-sw';
+        var sw=document.createElement('div');sw.className='unc-sw';
         if(src){sw.style.backgroundImage='url("'+src+'")';}else{var dot=document.createElement('i');dot.style.background=hex;sw.appendChild(dot);}
-        var nm=document.createElement('span');nm.className='unc-nm';
-        var d=document.createElement('span');d.className='unc-dot';d.style.background=hex;nm.appendChild(d);nm.appendChild(document.createTextNode(title));
+        var nm=document.createElement('div');nm.className='unc-nm';
+        var d=document.createElement('b');d.className='unc-dot';d.style.background=hex;nm.appendChild(d);nm.appendChild(document.createTextNode(title));
         var old=el.querySelectorAll('img');for(var q=0;q<old.length;q++)old[q].remove();
         el.textContent='';el.appendChild(sw);el.appendChild(nm);
         el.classList.add('unc-color');el.setAttribute('data-unc','1');
