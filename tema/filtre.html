@@ -30,7 +30,6 @@
 </style>
 <script>
 (function(){
-  if(!document.querySelector('.horizontal-filter-menu'))return;
   var HEX={'siyah':'#1a1a1a','beyaz':'#ffffff','fume':'#6e6865','lacivert':'#2b3a5e','kirmizi':'#b3201f','yesil':'#018b62','neon-orange':'#ff7a00','neon-sari':'#d9e021','gri':'#8a8e9a','haki':'#4b4932','mavi':'#1a3f8a'};
   var SIZE=['116/128','134/140','146/152','158/164','170/176','XS','S','M','L','XL','XXL','2XL','3XL','4XL','5XL','6XL'];
   function slug(s){return (s||'').toLocaleLowerCase('tr').replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').trim().replace(/\s+/g,'-');}
@@ -69,9 +68,9 @@
     main.parentNode.insertBefore(wrap,main);left.appendChild(main);wrap.appendChild(left);wrap.appendChild(aside);aside.appendChild(menu);
     document.body.classList.add('unc-side');
   }
-  function run(){fix();side();}
+  function run(){if(!document.querySelector('.filter-menu-groups'))return;fix();side();}
   if(document.readyState!=='loading')run();else document.addEventListener('DOMContentLoaded',run);
   window.addEventListener('load',run);
-  var tm;new MutationObserver(function(){clearTimeout(tm);tm=setTimeout(fix,80);}).observe(document.body,{childList:true,subtree:true});
+  var tm;function obs(){if(!document.body)return setTimeout(obs,50);new MutationObserver(function(){clearTimeout(tm);tm=setTimeout(run,80);}).observe(document.body,{childList:true,subtree:true});}obs();
 })();
 </script>
