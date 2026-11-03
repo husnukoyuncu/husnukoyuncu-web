@@ -1,4 +1,4 @@
-<!-- Uncteks: kategori filtre paneli (sağda sabit, renk kutucukları, beden sıralama) -->
+<!-- Uncteks: kategori filtre paneli (solda sabit, renk kutucukları, beden sıralama) -->
 <style>
 /* beden 2 sütun */
 .unc-sizegrid>div{display:grid!important;grid-template-columns:1fr 1fr;column-gap:8px}
@@ -65,7 +65,7 @@
     var left=document.createElement('div');left.className='unc-plp-main';
     var aside=document.createElement('aside');aside.className='unc-plp-aside';
     var h=document.createElement('div');h.className='unc-aside-title';h.textContent='FİLTRELE';aside.appendChild(h);
-    main.parentNode.insertBefore(wrap,main);left.appendChild(main);wrap.appendChild(left);wrap.appendChild(aside);aside.appendChild(menu);
+    main.parentNode.insertBefore(wrap,main);left.appendChild(main);wrap.appendChild(aside);wrap.appendChild(left);aside.appendChild(menu);
     document.body.classList.add('unc-side');
   }
   function run(){if(!document.querySelector('.filter-menu-groups'))return;fix();side();}
