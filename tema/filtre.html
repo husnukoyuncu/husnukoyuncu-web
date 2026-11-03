@@ -1,5 +1,7 @@
 <!-- Uncteks: kategori filtre paneli (sağda sabit, renk kutucukları, beden sıralama) -->
 <style>
+/* beden 2 sütun */
+.unc-sizegrid>div{display:grid!important;grid-template-columns:1fr 1fr;column-gap:8px}
 /* renk kutucukları */
 .unc-colorgrid>div{display:flex!important;flex-wrap:wrap;gap:8px;padding:4px 2px}
 .unc-colorgrid a.unc-csw{display:inline-block!important;width:28px!important;height:28px!important;min-width:28px;padding:0!important;margin:0!important;border-radius:50%!important;border:1px solid rgba(0,0,0,.18)!important;position:relative;font-size:0!important;line-height:0!important;color:transparent!important;box-shadow:inset 0 0 0 2px #fff;transition:transform .12s}
@@ -51,6 +53,7 @@
         var arr=[].slice.call(box.querySelectorAll('a'));
         arr.sort(function(x,y){var a=SIZE.indexOf(label(x).toUpperCase()),b=SIZE.indexOf(label(y).toUpperCase());return (a<0?99:a)-(b<0?99:b);});
         for(var j=0;j<arr.length;j++)box.appendChild(arr[j]);
+        g.querySelector('.dropbox-content').classList.add('unc-sizegrid');
         g.setAttribute('data-unc','1');
       }
     }
