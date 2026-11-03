@@ -1,14 +1,15 @@
 <!-- Uncteks: renk seçeneklerinde ürün görseli + renk adı -->
 <style>
-.unc-color{display:inline-flex!important;flex-direction:column;align-items:center;justify-content:flex-start;width:68px!important;height:auto!important;min-height:0!important;padding:4px 4px 6px!important;border:1px solid #e3e3e3!important;border-radius:6px!important;background:#fff!important;gap:5px;vertical-align:top;cursor:pointer;transition:border-color .15s}
+.variant-plural span.unc-color,.unc-color{display:inline-flex!important;max-width:none!important;max-height:none!important;min-width:0!important;min-height:118px;flex-direction:column;align-items:center;justify-content:flex-start;width:68px!important;height:auto!important;min-height:0!important;padding:4px 4px 6px!important;border:1px solid #e3e3e3!important;border-radius:6px!important;background:#fff!important;gap:5px;vertical-align:top;cursor:pointer;transition:border-color .15s}
 .unc-color:hover{border-color:#9a9a9a!important}
-.unc-color.variant-selected{border-color:#29363f!important;box-shadow:0 0 0 1px #29363f}
+.variant-plural span.unc-color.variant-selected,.unc-color.variant-selected{border-color:#29363f!important;box-shadow:0 0 0 1px #29363f}
 .unc-color .unc-sw{display:block;width:58px;height:72px;border-radius:4px;background:#f3f3f3 center/cover no-repeat;position:relative;overflow:hidden}
 .unc-color .unc-sw i{position:absolute;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
 .unc-color .unc-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;border:1px solid rgba(0,0,0,.2);vertical-align:-1px}
 .unc-color .unc-nm{font-size:11px;line-height:1.25;font-weight:600;color:#333;text-align:center;white-space:normal;word-break:break-word}
 .unc-color img{display:none!important}
-.unc-color.variant-disabled,.unc-color.disabled{opacity:.45}
+.unc-color.variant-passive,.unc-color.variant-disabled{opacity:.4}
+.variant-plural .variant-list{gap:8px}
 </style>
 <script>
 (function(){
