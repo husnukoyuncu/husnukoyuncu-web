@@ -1,0 +1,67 @@
+<!-- Uncteks: kategori filtre paneli (sağda sabit, renk kutucukları, beden sıralama) -->
+<style>
+/* renk kutucukları */
+.unc-colorgrid>div{display:flex!important;flex-wrap:wrap;gap:8px;padding:4px 2px}
+.unc-colorgrid a.unc-csw{display:inline-block!important;width:28px!important;height:28px!important;min-width:28px;padding:0!important;margin:0!important;border-radius:50%!important;border:1px solid rgba(0,0,0,.18)!important;position:relative;font-size:0!important;line-height:0!important;color:transparent!important;box-shadow:inset 0 0 0 2px #fff;transition:transform .12s}
+.unc-colorgrid a.unc-csw:hover{transform:scale(1.1)}
+.unc-colorgrid a.unc-csw:before,.unc-colorgrid a.unc-csw:after{display:none!important}
+.unc-colorgrid a.unc-csw span{display:none!important}
+.unc-colorgrid a.unc-csw.checked{box-shadow:inset 0 0 0 2px #fff,0 0 0 2px #29363f}
+@media (min-width:992px){
+  body.unc-side .unc-plp{display:flex;align-items:flex-start;gap:28px}
+  body.unc-side .unc-plp-main{flex:1 1 auto;min-width:0}
+  body.unc-side .unc-plp-aside{flex:0 0 260px;width:260px;position:sticky;top:110px;max-height:calc(100vh - 130px);overflow:auto;border:1px solid #ececec;border-radius:8px;padding:16px;background:#fff}
+  body.unc-side .unc-plp-aside .horizontal-filter-menu{position:static!important;transform:none!important;visibility:visible!important;opacity:1!important;display:block!important;width:auto!important;height:auto!important;max-width:none!important;left:auto!important;right:auto!important;top:auto!important;box-shadow:none!important;padding:0!important;background:none!important;z-index:auto!important}
+  body.unc-side .unc-plp-aside .openbox-close{display:none!important}
+  body.unc-side .unc-plp-aside .dropbox-content{display:block!important;max-height:none!important;height:auto!important}
+  body.unc-side .unc-plp-aside .unc-aside-title{font-weight:700;font-size:15px;margin:0 0 10px;letter-spacing:.3px}
+  body.unc-side .filter-wrapper-header .filter-options-title{display:none!important}
+  body.unc-side .filter-menu-overlay{display:none!important}
+}
+</style>
+<script>
+(function(){
+  if(!document.querySelector('.horizontal-filter-menu'))return;
+  var HEX={'siyah':'#1a1a1a','beyaz':'#ffffff','fume':'#6e6865','lacivert':'#2b3a5e','kirmizi':'#b3201f','yesil':'#018b62','neon-orange':'#ff7a00','neon-sari':'#d9e021','gri':'#8a8e9a','haki':'#4b4932','mavi':'#1a3f8a'};
+  var SIZE=['116/128','134/140','146/152','158/164','170/176','XS','S','M','L','XL','XXL','2XL','3XL','4XL','5XL','6XL'];
+  function slug(s){return (s||'').toLocaleLowerCase('tr').replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').trim().replace(/\s+/g,'-');}
+  function label(a){for(var i=0;i<a.childNodes.length;i++){var n=a.childNodes[i];if(n.nodeType===3&&n.textContent.trim())return n.textContent.trim();}return a.textContent.replace(/\(\d+\)/,'').trim();}
+  function groups(){return document.querySelectorAll('.filter-menu-group-selectbox');}
+  function title(g){var t=g.querySelector('.dropbox span');return t?t.textContent.trim():'';}
+  function fix(){
+    var gs=groups();
+    for(var i=0;i<gs.length;i++){
+      var g=gs[i],t=title(g),box=g.querySelector('.dropbox-content>div')||g.querySelector('.dropbox-content');
+      if(!box)continue;
+      if(/^renk$/i.test(t)&&!g.getAttribute('data-unc')){
+        g.querySelector('.dropbox-content').classList.add('unc-colorgrid');
+        var as=box.querySelectorAll('a');
+        for(var k=0;k<as.length;k++){var a=as[k],n=label(a),cnt=(a.querySelector('span')||{}).textContent||'';
+          a.classList.add('unc-csw');a.style.background=HEX[slug(n)]||'#ccc';a.title=n+(cnt?' '+cnt.trim():'');a.setAttribute('aria-label',n);}
+        g.setAttribute('data-unc','1');
+      }
+      if(/^beden$/i.test(t)&&!g.getAttribute('data-unc')){
+        var arr=[].slice.call(box.querySelectorAll('a'));
+        arr.sort(function(x,y){var a=SIZE.indexOf(label(x).toUpperCase()),b=SIZE.indexOf(label(y).toUpperCase());return (a<0?99:a)-(b<0?99:b);});
+        for(var j=0;j<arr.length;j++)box.appendChild(arr[j]);
+        g.setAttribute('data-unc','1');
+      }
+    }
+  }
+  function side(){
+    if(window.innerWidth<992||document.body.classList.contains('unc-side'))return;
+    var menu=document.querySelector('.horizontal-filter-menu'),main=document.querySelector('section.section-main');
+    if(!menu||!main||!menu.querySelector('.filter-menu-groups'))return;
+    var wrap=document.createElement('div');wrap.className='unc-plp';
+    var left=document.createElement('div');left.className='unc-plp-main';
+    var aside=document.createElement('aside');aside.className='unc-plp-aside';
+    var h=document.createElement('div');h.className='unc-aside-title';h.textContent='FİLTRELE';aside.appendChild(h);
+    main.parentNode.insertBefore(wrap,main);left.appendChild(main);wrap.appendChild(left);wrap.appendChild(aside);aside.appendChild(menu);
+    document.body.classList.add('unc-side');
+  }
+  function run(){fix();side();}
+  if(document.readyState!=='loading')run();else document.addEventListener('DOMContentLoaded',run);
+  window.addEventListener('load',run);
+  var tm;new MutationObserver(function(){clearTimeout(tm);tm=setTimeout(fix,80);}).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
