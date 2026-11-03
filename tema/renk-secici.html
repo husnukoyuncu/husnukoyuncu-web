@@ -1,0 +1,46 @@
+<!-- Uncteks: renk seçeneklerinde ürün görseli + renk adı -->
+<style>
+.unc-color{display:inline-flex!important;flex-direction:column;align-items:center;justify-content:flex-start;width:68px!important;height:auto!important;min-height:0!important;padding:4px 4px 6px!important;border:1px solid #e3e3e3!important;border-radius:6px!important;background:#fff!important;gap:5px;vertical-align:top;cursor:pointer;transition:border-color .15s}
+.unc-color:hover{border-color:#9a9a9a!important}
+.unc-color.variant-selected{border-color:#29363f!important;box-shadow:0 0 0 1px #29363f}
+.unc-color .unc-sw{display:block;width:58px;height:72px;border-radius:4px;background:#f3f3f3 center/cover no-repeat;position:relative;overflow:hidden}
+.unc-color .unc-sw i{position:absolute;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:1px solid rgba(0,0,0,.15)}
+.unc-color .unc-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;border:1px solid rgba(0,0,0,.2);vertical-align:-1px}
+.unc-color .unc-nm{font-size:11px;line-height:1.25;font-weight:600;color:#333;text-align:center;white-space:normal;word-break:break-word}
+.unc-color img{display:none!important}
+.unc-color.variant-disabled,.unc-color.disabled{opacity:.45}
+</style>
+<script>
+(function(){
+  var HEX={'siyah':'#1a1a1a','beyaz':'#ffffff','fume':'#6e6865','lacivert':'#2b3a5e','kirmizi':'#b3201f','yesil':'#018b62','neon-orange':'#ff7a00','neon-sari':'#d9e021','gri':'#8a8e9a','haki':'#4b4932','mavi':'#1a3f8a'};
+  function slug(s){return (s||'').toLocaleLowerCase('tr').replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i').replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u').trim().replace(/\s+/g,'-');}
+  function findImg(sl){
+    var imgs=document.querySelectorAll('img'),re=new RegExp('/products/\\d+/\\d\\d-\\d\\d-'+sl+'-1(_min)?\\.(jpe?g|png|webp)');
+    for(var i=0;i<imgs.length;i++){var s=imgs[i].getAttribute('src')||imgs[i].getAttribute('data-src')||'';if(re.test(s))return s;}
+    return null;
+  }
+  function apply(){
+    var groups=document.querySelectorAll('[data-selector="select-plural-variant"]');
+    for(var g=0;g<groups.length;g++){
+      var t=groups[g].querySelector('.variant-group-title');
+      if(!t||!/renk/i.test(t.textContent))continue;
+      var opts=groups[g].querySelectorAll('[data-option-id]');
+      for(var k=0;k<opts.length;k++){
+        var el=opts[k];if(el.getAttribute('data-unc')==='1')continue;
+        var title=el.getAttribute('data-option-title')||el.textContent.trim(),sl=slug(title),hex=HEX[sl]||'#cccccc',src=findImg(sl);
+        var sw=document.createElement('span');sw.className='unc-sw';
+        if(src){sw.style.backgroundImage='url("'+src+'")';}else{var dot=document.createElement('i');dot.style.background=hex;sw.appendChild(dot);}
+        var nm=document.createElement('span');nm.className='unc-nm';
+        var d=document.createElement('span');d.className='unc-dot';d.style.background=hex;nm.appendChild(d);nm.appendChild(document.createTextNode(title));
+        var old=el.querySelectorAll('img');for(var q=0;q<old.length;q++)old[q].remove();
+        el.textContent='';el.appendChild(sw);el.appendChild(nm);
+        el.classList.add('unc-color');el.setAttribute('data-unc','1');
+      }
+    }
+  }
+  var timer;function sched(){clearTimeout(timer);timer=setTimeout(apply,60);}
+  if(document.readyState!=='loading')apply();else document.addEventListener('DOMContentLoaded',apply);
+  window.addEventListener('load',apply);
+  new MutationObserver(sched).observe(document.documentElement,{childList:true,subtree:true});
+})();
+</script>
